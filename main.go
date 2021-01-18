@@ -1,27 +1,32 @@
 package main
 
 import (
-	"flag"
-
-	service "./service"
+	flags "./flags"
+	services "./services"
+	settings "./settings"
 )
 
-func main() {
-	methodFlag := flag.String("METHOD", "GET", "Method of request")
-	urlFlag := flag.String("URL", "", "URL of request")
-	tokenFlag := flag.String("TOKEN", "", "Bearer token of request")
+func HandleAttack(f flags.Flag) {
+	if f.File != "" {
+		data := settings.RetrieveJSON(f.File)
 
-	flag.Parse()
-
-	startStress(*methodFlag, *urlFlag, *tokenFlag)
-}
-
-func startStress(method string, url string, token string) {
-	switch method {
-	case "GET":
-		for i := 0; i < 10_000; i++ {
-			service.Get(url, token)
+		switch data.Method {
+		case "GET":
+			for {
+				services.Get(data.Url, data.Token)
+			}
+		case "POST":
+			for {
+				services.Post(data.Url, data.Token, data.Body)
+			}
 		}
 	}
 
+	services.Custom(f.Method, f.Url, f.Token, f.Body)
+}
+
+func main() {
+	flag := flags.BuildFlags()
+	
+	HandleAttack(flag)
 }
