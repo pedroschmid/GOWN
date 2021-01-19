@@ -9,12 +9,12 @@ import (
 	"net/http"
 )
 
+type Data struct {
+	Body string
+}
+
 func Custom(method string, url string, token string, data string) {
-	payload := map[string]interface{}{"id": 1, "name": "root"}
-
-	byts, _ := json.Marshal(payload)
-
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(byts))
+	req, err := http.NewRequest("POST", url, bytes.NewBufferString(data))
 	req.Header.Add("Authorization", FormatBearerToken(token))
 	req.Header.Set("Content-Type", "application/json")
 

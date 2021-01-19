@@ -6,7 +6,7 @@ import (
 	settings "./settings"
 )
 
-func HandleAttack(f flags.Flag) {
+func HandleStress(f flags.Flag) {
 	if f.File != "" {
 		data := settings.RetrieveJSON(f.File)
 
@@ -22,11 +22,13 @@ func HandleAttack(f flags.Flag) {
 		}
 	}
 
-	services.Custom(f.Method, f.Url, f.Token, f.Body)
+	for {
+		services.Custom(f.Method, f.Url, f.Token, f.Body)
+	}
 }
 
 func main() {
 	flag := flags.BuildFlags()
-	
+
 	HandleAttack(flag)
 }
