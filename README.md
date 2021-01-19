@@ -7,12 +7,12 @@ If u have a configuration file (should be a .json file!), run: go run main.go --
 
 But if u dont have a configuration file, you can pass arguments/flags by yourself, follow the list of args...
 
---METHOD=string
+--METHOD='string'
 <br /> 
---URL=string
+--URL='string'
 <br /> 
---TOKEN=string
+--TOKEN='string'
 <br /> 
---BODY=string
+--BODY='string'
 
 Here's an example: go run main.go --METHOD="POST" --URL="http://localhost:3000/" --BODY="{ "user": "root" }"
