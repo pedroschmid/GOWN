@@ -30,5 +30,5 @@ func HandleStress(f flags.Flag) {
 func main() {
 	flag := flags.BuildFlags()
 
-	HandleAttack(flag)
+	HandleStress(flag)
 }
